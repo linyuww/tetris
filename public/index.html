@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Multiplayer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="victory.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="local-player-wrapper">
+            <!-- Left Panel: Stats -->
+            <div class="panel left-panel">
+                <div class="stats-box">
+                    <h3>状态信息</h3>
+                    <div class="stat-item stat-target">
+                        <span class="label">目标</span>
+                        <span id="my-target" class="value">None</span>
+                    </div>
+                    <div class="stat-item stat-targeted">
+                        <span class="label">被瞄准</span>
+                        <span id="my-targeted-by" class="value">0</span>
+                    </div>
+                    <div class="stat-item stat-badges">
+                        <span class="label">徽章</span>
+                        <span id="my-badges" class="value">0</span>
+                    </div>
+                    <div class="stat-item stat-kos">
+                        <span class="label">击杀</span>
+                        <span id="my-kos" class="value">0</span>
+                    </div>
+                </div>
+                <div id="strategy-display">策略: Random</div>
+            </div>
+
+            <!-- Center Panel: Game Board -->
+            <div class="panel center-panel">
+                <h2>You (<span id="my-id">Connecting...</span>)</h2>
+                <canvas id="local-canvas" width="240" height="480"></canvas>
+            </div>
+
+            <!-- Right Panel: Hold & Controls -->
+            <div class="panel right-panel">
+                <div class="hold-container">
+                    <h3>暂存 (Hold)</h3>
+                    <canvas id="hold-canvas" width="100" height="80"></canvas>
+                </div>
+                
+                <div class="controls-info">
+                    <h3>操作指南</h3>
+                    <div class="key-row"><span class="key">←</span><span class="key">→</span> <span>移动</span></div>
+                    <div class="key-row"><span class="key">↑</span><span class="key">Z</span> <span>旋转</span></div>
+                    <div class="key-row"><span class="key">↓</span> <span>软掉落</span></div>
+                    <div class="key-row"><span class="key space">Space</span> <span>硬掉落</span></div>
+                    <div class="key-row"><span class="key">C</span> <span>暂存</span></div>
+                    <div class="key-row"><span class="key">1-4</span> <span>策略</span></div>
+                    <button id="restart-btn">重新开始</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="opponents" class="opponents-view">
+            <!-- Opponent canvases will be added here -->
+        </div>
+    </div>
+    
+    <div id="effects-layer"></div>
+    
+    <!-- Login Overlay -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <h1>Tetris 99 Clone</h1>
+            <div class="input-group">
+                <label for="room-input">Room ID</label>
+                <input type="text" id="room-input" placeholder="Enter Room Name" value="default">
+            </div>
+            <div class="input-group">
+                <label for="nickname-input">Nickname</label>
+                <input type="text" id="nickname-input" placeholder="Enter Nickname">
+            </div>
+            <button id="join-btn">Join Game</button>
+        </div>
+    </div>
+
+    <div id="victory-overlay" class="hidden">
+        <div class="victory-content">
+            <h1 id="victory-title">VICTORY!</h1>
+            <p id="victory-message">你是最终的幸存者</p>
+            <button id="victory-restart-btn">再来一局</button>
+        </div>
+    </div>
+    <div id="connection-status">Connecting to server...</div>
+
+    <!-- Mobile Controls -->
+    <div id="mobile-controls">
+        <div class="control-group d-pad">
+            <button id="btn-left" class="control-btn">←</button>
+            <button id="btn-down" class="control-btn">↓</button>
+            <button id="btn-right" class="control-btn">→</button>
+        </div>
+        <div class="control-group actions">
+            <button id="btn-rotate-ccw" class="control-btn">↺</button>
+            <button id="btn-rotate-cw" class="control-btn">↻</button>
+            <button id="btn-hard-drop" class="control-btn">⤓</button>
+            <button id="btn-hold" class="control-btn">H</button>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
