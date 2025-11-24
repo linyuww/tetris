@@ -1,85 +1,85 @@
-# Tetris Multiplayer (Tetris 99 Clone)
+# 多人俄罗斯方块 (Tetris 99 克隆版)
 
-A multiplayer Tetris game built with Node.js, Socket.io, and HTML5 Canvas, inspired by Tetris 99. Battle against other players, send garbage lines, and be the last one standing!
+一个基于 Node.js、Socket.io 和 HTML5 Canvas 构建的多人俄罗斯方块游戏，灵感来源于 Tetris 99。与其他玩家对战，发送垃圾行，努力成为最后的幸存者！
 
-## Features
+## 特性
 
-- **Real-time Multiplayer**: Play against friends or bots in the same room.
-- **Strategic Targeting**: Switch between targeting modes on the fly:
-  - **Random**: Target a random opponent.
-  - **Attackers**: Target those who are targeting you.
-  - **Badges**: Target players with the most badges (kills).
-  - **K.O.s**: Target players close to being eliminated.
-- **Garbage System**: Clearing lines sends garbage to your targets.
-- **Visual Effects**: Particle sparks, hard drop flashes, and 3D-style block rendering.
-- **Responsive Layout**: Adaptive interface with mobile touch controls.
+- **实时多人对战**：在同一个房间内与朋友或机器人对战。
+- **策略目标选择**：随时切换目标模式：
+  - **随机 (Random)**：攻击随机对手。
+  - **反击 (Attackers)**：攻击正在瞄准你的对手。
+  - **徽章 (Badges)**：攻击拥有最多徽章（击杀数）的玩家。
+  - **濒死 (K.O.s)**：攻击即将被淘汰的玩家。
+- **垃圾行系统**：消除行会向你的目标发送垃圾行。
+- **视觉特效**：粒子火花、硬掉落闪光和 3D 风格方块渲染。
+- **响应式布局**：自适应界面，支持移动端触摸控制。
 
-## Prerequisites
+## 前置要求
 
-- [Node.js](https://nodejs.org/) (v14 or higher recommended)
-- npm (Node Package Manager)
+- [Node.js](https://nodejs.org/) (推荐 v14 或更高版本)
+- npm (Node 包管理器)
 
-## Quick Start
+## 快速开始
 
-1. **Clone the repository**
+1. **克隆仓库**
 
     ```bash
     git clone https://github.com/linyuww/teris.git
     cd teris
     ```
 
-2. **Install dependencies**
+2. **安装依赖**
 
     ```bash
     npm install
     ```
 
-3. **Start the server**
+3. **启动服务器**
 
     ```bash
     npm start
     ```
 
-4. **Play the game**
+4. **开始游戏**
 
-    Open your browser and navigate to `http://localhost:3000`.
+    打开浏览器并访问 `http://localhost:3000`。
     
-    - Enter a **Room ID** (e.g., `room1`) and a **Nickname**.
-    - Open multiple browser tabs or connect from different devices to the same Room ID to play against each other.
+    - 输入 **房间号 (Room ID)** (例如 `room1`) 和 **昵称 (Nickname)**。
+    - 打开多个浏览器标签页或使用不同设备连接到同一个房间号即可进行对战。
 
-## Controls
+## 操作说明
 
-### Desktop (Keyboard)
+### 桌面端 (键盘)
 
-| Key | Action |
+| 按键 | 动作 |
 | --- | --- |
-| **Arrow Left / Right** | Move Piece Left / Right |
-| **Arrow Down** | Soft Drop (Faster fall) |
-| **Arrow Up** | Rotate Clockwise |
-| **Z** | Rotate Counter-Clockwise |
-| **Space** | Hard Drop (Instant lock) |
-| **C** or **Shift** | Hold Piece |
-| **1** | Target: Random |
-| **2** | Target: Attackers |
-| **3** | Target: Badges |
-| **4** | Target: K.O.s |
+| **方向键 左 / 右** | 左移 / 右移方块 |
+| **方向键 下** | 软掉落 (加速下落) |
+| **方向键 上** | 顺时针旋转 |
+| **Z** | 逆时针旋转 |
+| **空格 (Space)** | 硬掉落 (瞬间锁定) |
+| **C** 或 **Shift** | 暂存方块 (Hold) |
+| **1** | 目标：随机 |
+| **2** | 目标：反击 |
+| **3** | 目标：徽章 |
+| **4** | 目标：濒死 |
 
-### Mobile (Touch)
+### 移动端 (触摸)
 
-- On-screen buttons are provided for movement, rotation, hard drop, and hold.
+- 屏幕上提供用于移动、旋转、硬掉落和暂存的按钮。
 
-## Project Structure
+## 项目结构
 
-- `src/`: Server-side game logic.
-  - `index.js`: Entry point, Socket.io setup.
-  - `GameManager.js`: Manages game rooms and loops.
-  - `TetrisBoard.js`: Core Tetris logic (grid, movement, clearing).
-  - `PlayerController.js`: Handles user input and state.
-- `public/`: Client-side static files.
-  - `index.html`: Game UI.
-  - `client.js`: Rendering and socket events.
-  - `style.css`: Styling and layout.
+- `src/`: 服务端游戏逻辑。
+  - `index.js`: 入口文件，Socket.io 设置。
+  - `GameManager.js`: 管理游戏房间和循环。
+  - `TetrisBoard.js`: 核心俄罗斯方块逻辑（网格、移动、消除）。
+  - `PlayerController.js`: 处理用户输入和状态。
+- `public/`: 客户端静态文件。
+  - `index.html`: 游戏 UI。
+  - `client.js`: 渲染和 Socket 事件。
+  - `style.css`: 样式和布局。
 
-## License
+## 许可证
 
 ISC
