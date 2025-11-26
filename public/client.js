@@ -40,6 +40,8 @@ socket.on('init', (data) => {
     if (data.roomId) {
         document.title = `Tetris - Room: ${data.roomId}`;
     }
+    // Hide restart button initially
+    document.getElementById('restart-btn').style.display = 'none';
 });
 
 socket.on('gameState', (state) => {
@@ -543,13 +545,32 @@ document.getElementById('victory-restart-btn').addEventListener('click', () => {
 socket.on('gameWinner', (winnerId) => {
     // Optional: Show notification about who won
     console.log(`Winner is ${winnerId}`);
+    
+    // Game is fully over. Show restart options.
+    document.getElementById('restart-btn').style.display = 'block'; // Side panel
+    document.getElementById('victory-restart-btn').style.display = 'block'; // Overlay button
+    
+    const waitingMsg = document.getElementById('waiting-msg');
+    if (waitingMsg) waitingMsg.style.display = 'none';
 });
 
 socket.on('gameOver', (data) => {
     const overlay = document.getElementById('victory-overlay');
     const title = document.getElementById('victory-title');
     const message = document.getElementById('victory-message');
+    const restartBtn = document.getElementById('victory-restart-btn');
+    const waitingMsg = document.getElementById('waiting-msg');
     
+    // Hide restart buttons initially (wait for gameWinner)
+    document.getElementById('restart-btn').style.display = 'none';
+    if (restartBtn) restartBtn.style.display = 'none';
+    
+    // Show waiting message
+    if (waitingMsg) {
+        waitingMsg.style.display = 'block';
+        waitingMsg.innerText = '等待游戏结束...';
+    }
+
     if (data.rank === 1) {
         title.innerText = 'VICTORY!';
         message.innerText = '你是最终的幸存者 (第 1 名)';
@@ -569,5 +590,14 @@ socket.on('gameRestarted', () => {
     const overlay = document.getElementById('victory-overlay');
     overlay.classList.remove('visible');
     overlay.classList.add('hidden');
+    
+    // Hide side panel restart button
+    document.getElementById('restart-btn').style.display = 'none';
+});
+
+socket.on('gameStarted', () => {
+    // Ensure restart button is hidden when game starts
+    document.getElementById('restart-btn').style.display = 'none';
+    document.getElementById('victory-overlay').classList.add('hidden');
 });
 
