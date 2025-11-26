@@ -36,7 +36,7 @@ socket.on('connect', () => {
 
 socket.on('init', (data) => {
     myId = data.id;
-    document.getElementById('my-id').innerText = myId;
+    document.getElementById('my-id').innerText = data.nickname || myId;
     if (data.roomId) {
         document.title = `Tetris - Room: ${data.roomId}`;
     }

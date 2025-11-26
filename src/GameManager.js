@@ -172,7 +172,7 @@ class GameManager {
         }
 
         // If action resulted in a clear/lock
-        if (result) {
+        if (result && result.type) {
             this.handleAttack(player, result);
         }
     }

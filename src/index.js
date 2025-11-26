@@ -50,9 +50,9 @@ io.on('connection', (socket) => {
             rooms.set(roomId, game);
         }
 
-        game.addPlayer(socket.id, nickname || `Player ${socket.id.substr(0,4)}`);
-        socket.emit('init', { id: socket.id, roomId });
-        console.log(`User ${socket.id} joined room ${roomId} as ${nickname}`);
+        const player = game.addPlayer(socket.id, nickname || `Player ${socket.id.substr(0,4)}`);
+        socket.emit('init', { id: socket.id, roomId, nickname: player.nickname });
+        console.log(`User ${socket.id} joined room ${roomId} as ${player.nickname}`);
     });
 
     socket.on('disconnect', () => {
