@@ -45,6 +45,8 @@
 }
 
 .victory-content button {
+    display: block;
+    margin: 20px auto;
     padding: 15px 40px;
     font-size: 1.5em;
     background: linear-gradient(135deg, #f1c40f, #f39c12);
