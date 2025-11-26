@@ -16,6 +16,16 @@ const io = new Server(server, {
 // Room ID -> GameManager
 const rooms = new Map();
 
+// Helper to generate random nicknames
+function getRandomNickname() {
+    const adjectives = ['Happy', 'Lucky', 'Sunny', 'Clever', 'Brave', 'Swift', 'Calm', 'Wild', 'Cool', 'Fast'];
+    const nouns = ['Panda', 'Tiger', 'Eagle', 'Fox', 'Wolf', 'Bear', 'Hawk', 'Lion', 'Cat', 'Dog'];
+    const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const noun = nouns[Math.floor(Math.random() * nouns.length)];
+    const num = Math.floor(Math.random() * 100);
+    return `${adj}${noun}${num}`;
+}
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 io.on('connection', (socket) => {
@@ -56,7 +66,7 @@ io.on('connection', (socket) => {
             rooms.set(roomId, game);
         }
 
-        const player = game.addPlayer(socket.id, nickname || `Player ${socket.id.substr(0,4)}`);
+        const player = game.addPlayer(socket.id, nickname || getRandomNickname());
         socket.emit('init', { id: socket.id, roomId, nickname: player.nickname });
         console.log(`User ${socket.id} joined room ${roomId} as ${player.nickname}`);
     });

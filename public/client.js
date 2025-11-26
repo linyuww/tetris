@@ -23,7 +23,7 @@ let currentRoomId = null;
 // Login Handling
 document.getElementById('join-btn').addEventListener('click', () => {
     const roomId = document.getElementById('room-input').value || 'default';
-    const nickname = document.getElementById('nickname-input').value || 'Player';
+    const nickname = document.getElementById('nickname-input').value; // Allow empty to let server assign random
     
     socket.emit('joinGame', { roomId, nickname });
     document.getElementById('login-overlay').style.display = 'none';
