@@ -135,6 +135,9 @@ class GameManager {
                 this.stopGame();
             }
         }
+        else if (this.players.size === 1) {
+                this.stopGame();
+        }
 
         // Update targeting info
         const playerList = Array.from(this.players.values());
