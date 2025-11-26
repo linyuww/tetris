@@ -117,26 +117,43 @@ class GameManager {
         });
 
         // Check for Winner
-        if (this.isRunning && this.players.size > 1) {
-            if (aliveCount === 1) {
-                // We have a winner!
-                const winner = alivePlayers[0];
-                this.stopGame();
-                
-                // Notify winner of Rank 1
-                if (this.onPlayerEliminated) {
-                    this.onPlayerEliminated(winner.id, 1);
+        if (this.isRunning) {
+            // Single Player Mode Check
+            if (this.players.size === 1) {
+                if (aliveCount === 0) {
+                    console.log("Single player game over.");
+                    this.stopGame();
+                    if (this.onWinner) {
+                        // Pass null or the player ID to indicate game end
+                        // Since it's single player, they "won" the session in terms of it ending, 
+                        // but really they lost. We just need to trigger the end event.
+                        this.onWinner(Array.from(this.players.keys())[0]); 
+                    }
                 }
+            } 
+            // Multiplayer Mode Check
+            else if (this.players.size > 1) {
+                if (aliveCount === 1) {
+                    // We have a winner!
+                    const winner = alivePlayers[0];
+                    this.stopGame();
+                    
+                    // Notify winner of Rank 1
+                    if (this.onPlayerEliminated) {
+                        this.onPlayerEliminated(winner.id, 1);
+                    }
 
-                if (this.onWinner) {
-                    this.onWinner(winner.id);
+                    if (this.onWinner) {
+                        this.onWinner(winner.id);
+                    }
+                } else if (aliveCount === 0 && this.players.size > 0) {
+                    // All died same tick?
+                    this.stopGame();
+                    if (this.onWinner) {
+                        this.onWinner(null);
+                    }
                 }
-            } else if (aliveCount === 0 && this.players.size > 0) {
-                this.stopGame();
             }
-        }
-        else if (this.players.size === 1) {
-                this.stopGame();
         }
 
         // Update targeting info

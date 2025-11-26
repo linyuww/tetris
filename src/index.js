@@ -36,8 +36,14 @@ io.on('connection', (socket) => {
                 (attackData) => {
                     io.to(roomId).emit('attack', attackData);
                 },
-                (winnerId) => {
+                (winnerId, leaderboard) => {
+                    console.log(`Event: gameWinner -> ${winnerId} in room ${roomId}`);
+                    // Always emit gameWinner to show restart buttons, even if winnerId is null (all dead)
                     io.to(roomId).emit('gameWinner', winnerId);
+                    
+                    if (leaderboard) {
+                        io.to(roomId).emit('gameLeaderboard', leaderboard);
+                    }
                 },
                 (actionData) => {
                     io.to(roomId).emit('playerAction', actionData);
